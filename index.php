@@ -4,17 +4,29 @@ error_reporting(E_ALL);
 
 session_start();
 
-//require autoload
 require_once('vendor/autoload.php');
 
-//create an instance of the base class
 $f3 = Base::instance();
 
-//define a default route
-$f3->route('GET /', function($f3)
+//default route
+$f3->route('GET /', function()
 {
     echo '<h1>Midterm Survey</h1>';
     echo '<a href="survey">Take My Midterm Survey</a>';
+});
+
+//survey
+$f3->route('GET /survey', function($f3)
+{
+    $options = [];
+    $options["option1"] = "This midterm is easy";
+    $options["option2"] = "I like midterms";
+    $options["option3"] = "Today is monday";
+
+    $_SESSION["selectOptions"] = $options;
+
+    $view = new Template();
+    echo $view->render('views/survey.html');
 });
 
 //run fat-free

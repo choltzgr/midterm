@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Midterm Survey</title>
+</head>
+<body>
+<h1>Midterm Survey</h1>
+<form method="post" action="">
+    <label for="name">Name:
+        <input type="text" name="name" id="name">
+    </label><br>
+
+    <p><br>Check all that apply:<br></p>
+
+    <input type="checkbox" name="selections" value="{{ @SESSION.selectOptions.option1 }}">{{ @SESSION.selectOptions.option1 }}<br>
+    <input type="checkbox" name="selections" value="{{ @SESSION.selectOptions.option2 }}">{{ @SESSION.selectOptions.option2 }}<br>
+    <input type="checkbox" name="selections" value="{{ @SESSION.selectOptions.option3 }}">{{ @SESSION.selectOptions.option3 }}<br>
+
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
