@@ -6,15 +6,31 @@
 </head>
 <body>
 <h1>Midterm Survey</h1>
+
+
 <form method="post" action="survey">
+
+
+    <check if="{{ isset(@errors.name)}}">
+        <p>{{@errors.name}}</p>
+    </check>
+
     <label for="name">Name:
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" required>
     </label><br>
 
     <p><br>Check all that apply:<br></p>
 
+    <check if="{{ isset(@errors.select)}}">
+        <p>{{@errors.select}}</p>
+    </check>
+
     <repeat group="{{ @selections }}" value="{{ @selections }}">
-        <label><input type="checkbox" name="select[]" value="{{ @selections }}">{{ @selections }}</label><br>
+        <label><input type="checkbox" name="select[]" value="{{ @selections }}" required>
+            <check if="{{ !empty(@select) && in_array(@selections, @select) }}">
+                checked="checked"
+            </check>
+            {{ @selections }}</label><br>
     </repeat>
 
 
