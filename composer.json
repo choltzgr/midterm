@@ -1,0 +1,12 @@
+{
+  "name": "choltzgr/328/",
+  "authors": [
+    {
+      "name": "Chris Holtz",
+      "email": "choltz3@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
