@@ -8,6 +8,9 @@ require_once('vendor/autoload.php');
 
 $f3 = Base::instance();
 
+
+$f3->set('selections', array('This midterm is easy', 'I like midterms', 'Today is monday'));
+
 //default route
 $f3->route('GET /', function()
 {
@@ -16,17 +19,38 @@ $f3->route('GET /', function()
 });
 
 //survey
-$f3->route('GET /survey', function($f3)
+$f3->route('GET|POST /survey', function($f3)
 {
-    $options = [];
-    $options["option1"] = "This midterm is easy";
-    $options["option2"] = "I like midterms";
-    $options["option3"] = "Today is monday";
+    if(!empty($_POST))
+    {
+        $select = $_POST['select'];
 
-    $_SESSION["selectOptions"] = $options;
+        $f3->set('select', $select);
+
+
+        //$_SESSION['select'] = "Testing";
+
+        if (empty($select)) {
+            $_SESSION['select'] = "No selection";
+        }
+        else {
+            $_SESSION['select'] = implode(', ', $select);
+        }
+
+        $_SESSION['name'] = $_POST['name'];
+
+        $f3->reroute('/summary');
+    }
 
     $view = new Template();
     echo $view->render('views/survey.html');
+});
+
+//summary
+$f3->route('GET|POST /summary', function()
+{
+    $view = new Template();
+    echo $view->render('views/results.html');
 });
 
 //run fat-free
