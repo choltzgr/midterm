@@ -23,27 +23,45 @@ $f3->route('GET|POST /survey', function($f3)
 {
     if(!empty($_POST))
     {
-        $select = $_POST['select'];
-
-        $f3->set('select', $select);
-
-
-        //$_SESSION['select'] = "Testing";
-
-        if (empty($select)) {
-            $_SESSION['select'] = "No selection";
+        if(empty($_POST['name']))
+        {
+            //error
+            $f3->set("errors['name']", "A name needs to be entered");
         }
-        else {
-            $_SESSION['select'] = implode(', ', $select);
+        else
+        {
+            if(empty($_POST['select']))
+            {
+                //error
+                $f3->set("errors['select']", "An option needs to be selected");
+            }
+            else
+            {
+                $select = $_POST['select'];
+
+                $f3->set('select', $select);
+
+
+                //$_SESSION['select'] = "Testing";
+
+                if (empty($select)) {
+                    $_SESSION['select'] = "No selection";
+                }
+                else {
+                    $_SESSION['select'] = implode(', ', $select);
+                }
+
+                $_SESSION['name'] = $_POST['name'];
+
+                $f3->reroute('/summary');
+            }
+
+            }
+
         }
-
-        $_SESSION['name'] = $_POST['name'];
-
-        $f3->reroute('/summary');
-    }
-
     $view = new Template();
     echo $view->render('views/survey.html');
+
 });
 
 //summary
