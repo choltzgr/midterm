@@ -26,7 +26,7 @@
     </check>
 
     <repeat group="{{ @selections }}" value="{{ @selections }}">
-        <label><input type="checkbox" name="select[]" value="{{ @selections }}" required>
+        <label><input type="checkbox" name="select[]" value="{{ @selections }}">
             <check if="{{ !empty(@select) && in_array(@selections, @select) }}">
                 checked="checked"
             </check>
